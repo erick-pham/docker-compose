@@ -1,0 +1,53 @@
+version: '3'
+
+services:
+  crm_web:
+    container_name: crm_web
+    build: ./
+    # environment:
+    #   - MYSQL_ROOT_PASSWORD=@Abc123456
+    #   - MYSQL_USER=SuiteCRM
+    #   - MYSQL_PASSWORD=@SuiteCRM
+    ports:
+      - "3000:80"
+    restart: always  
+    networks: 
+      - crm
+    volumes:
+      - crm_web_data:/var/www/html
+  crm_db:
+    container_name: crm_db
+    image: mysql:8
+    environment:
+      - MYSQL_ROOT_PASSWORD=@Abc123456
+      - MYSQL_USER=SuiteCRM
+      - MYSQL_PASSWORD=@SuiteCRM
+    ports:
+      - "3306:3306"
+    restart: always  
+    networks: 
+      - crm
+    volumes:
+      - mysql_data:/var/lib/mysql
+  crm_metabase:
+    container_name: metabase
+    image: metabase/metabase
+    environment:
+      - MB_DB_TYPE=mysql
+      - MB_DB_DBNAME=crm_report
+      - MB_DB_PORT=3306
+      - MB_DB_USER=SuiteCRM
+      - MB_DB_PASS=@SuiteCRM
+      - MB_DB_HOST=crm_db
+    ports:
+      - "3001:80"
+    restart: always  
+    networks: 
+      - crm
+    depends_on:
+      - crm_db
+volumes:
+  mysql_data:
+  crm_web_data:  
+networks: 
+  crm:
