@@ -1,0 +1,39 @@
+version: '3'
+services:
+  mariadb:
+    container_name: mariadb_server
+    image: bitnami/mariadb:latest
+    ports:
+      - 3306:3310
+    volumes:
+      - mariadb_data:/bitnami
+    environment:
+      - MARIADB_ROOT_USER=root
+      - MARIADB_ROOT_PASSWORD=root
+      - MARIADB_USER=bn_jasperreports
+      - MARIADB_PASSWORD=bn_jasperreports
+      - MARIADB_DATABASE=bitnami_jasperreports
+      - ALLOW_EMPTY_PASSWORD=no
+  jasperreports:
+    image: bitnami/jasperreports:latest
+    ports:
+      - 80:8080
+      - 443:443
+    volumes:
+      - jasperreports_data:/bitnami
+    depends_on:
+      - mariadb
+    environment:
+      - MARIADB_HOST=mariadb
+      - JASPERREPORTS_USERNAME=admin
+      - JASPERREPORTS_PASSWORD=admin
+      - JASPERREPORTS_EMAIL=bossdiemmaimai@gmail.com
+      - JASPERREPORTS_DATABASE_USER=bn_jasperreports
+      - JASPERREPORTS_DATABASE_PASSWORD=bn_jasperreports
+      - JASPERREPORTS_DATABASE_NAME=bitnami_jasperreports 
+      - ALLOW_EMPTY_PASSWORD=no
+volumes:
+  mariadb_data:
+    driver: local
+  jasperreports_data:
+    driver: local

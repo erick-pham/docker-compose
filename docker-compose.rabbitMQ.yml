@@ -1,0 +1,28 @@
+version: '3'
+services:
+  rabbitmq_management:
+    image: rabbitmq:3.8.4-management
+    container_name: rabbitmq_management
+    networks:
+      - backend_rabbitMQ
+    ports:
+      - 5672:5672
+      - 15672:15672
+    restart: always
+networks:
+  backend_rabbitMQ:
+
+
+# version: '3'
+# services:
+#   rabbitmq:
+#     image: 'bitnami/rabbitmq:latest'
+#     container_name: rabbitmq
+#     networks:
+#       - backend_rabbitMQ
+#     ports:
+#       - 5672:5672
+#       - 15672:15672
+#     restart: always
+# networks:
+#   backend_rabbitMQ:    
