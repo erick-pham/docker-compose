@@ -22,7 +22,7 @@ services:
       - MARIADB_PORT_NUMBER=3306
       - WORDPRESS_USERNAME=admin
       - WORDPRESS_PASSWORD=admin
-      - WORDPRESS_EMAIL=erick.pham@360f.com
+      - WORDPRESS_EMAIL=bossdiemmaimai@gmail.com
       - WORDPRESS_FIRST_NAME=Erick
       - WORDPRESS_LAST_NAME=Pham
       - WORDPRESS_DATABASE_USER=bn_wordpress
