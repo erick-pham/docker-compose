@@ -9,7 +9,7 @@ services:
      - MYSQL_DATABASE=foresightpro
      - MYSQL_PASSWORD=foresightpro_dev
     volumes:
-      - db-data:/var/lib/mysql
+      - D:\\projects\\docker-compose\\volumes\\mysql_latest:/var/lib/mysql
     networks:
       - backend
     # restart: always

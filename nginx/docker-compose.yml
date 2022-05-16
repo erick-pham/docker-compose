@@ -1,0 +1,9 @@
+version: '3'
+
+services:
+  nginx:
+    container_name: nginx
+    build: ./
+    ports:
+      - "3333:3333"
+      - "4444:4444"
