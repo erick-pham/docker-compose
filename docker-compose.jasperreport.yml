@@ -4,7 +4,7 @@ services:
     container_name: mariadb_server
     image: bitnami/mariadb:latest
     ports:
-      - 3306:3310
+      - 3307:3307
     volumes:
       - mariadb_data:/bitnami
     environment:
@@ -17,8 +17,8 @@ services:
   jasperreports:
     image: bitnami/jasperreports:latest
     ports:
-      - 80:8080
-      - 443:443
+      - 8080:8080
+      - 4433:443
     volumes:
       - jasperreports_data:/bitnami
     depends_on:
@@ -30,7 +30,7 @@ services:
       - JASPERREPORTS_EMAIL=bossdiemmaimai@gmail.com
       - JASPERREPORTS_DATABASE_USER=bn_jasperreports
       - JASPERREPORTS_DATABASE_PASSWORD=bn_jasperreports
-      - JASPERREPORTS_DATABASE_NAME=bitnami_jasperreports 
+      - JASPERREPORTS_DATABASE_NAME=bitnami_jasperreports
       - ALLOW_EMPTY_PASSWORD=no
 volumes:
   mariadb_data:
