@@ -1,0 +1,42 @@
+version: '3.8'
+
+services:
+  mariadb:
+    image: docker.io/bitnami/mariadb:latest
+    environment:
+      # ALLOW_EMPTY_PASSWORD is recommended only for development.
+      - ALLOW_EMPTY_PASSWORD=yes
+      - MARIADB_USER=bn_suitecrm
+      - MARIADB_DATABASE=bitnami_suitecrm
+      - MARIADB_PASSWORD=bitnami123
+    volumes:
+      - './mariadb-backups/latest:/bitnami/mariadb'
+    ports:
+      - '3306:3306'
+  suitecrm8:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: suitecrm8
+    restart: unless-stopped
+    ports:
+      - "8080:80"
+      - "8443:443"
+    environment:
+      - MYSQL_CLIENT_ENABLE_SSL=true
+    volumes:
+      # - ./suitecrm_data:/var/www/html/SuiteCRM
+
+      #SuiteCRM Log Folder
+      # - ./logs/SuiteCRM:/var/www/html/SuiteCRM/logs
+      # - ./logs/SuiteCRM_Core/suitecrm.log:/var/www/html/SuiteCRM/public/legacy/suitecrm.log
+      #PHP config
+      - ./docker/php/php.ini:/usr/local/etc/php/conf.d/custom.ini
+      #APACHE config
+      - ./docker/apache/apache2.conf:/etc/apache2/apache2.conf
+      - ./docker/apache/sites.conf:/etc/apache2/sites-enabled/sites.conf
+      - ./certs/server.crt:/etc/ssl/certs/apache-selfsigned.crt
+      - ./certs/server.key:/etc/ssl/private/apache-selfsigned.key
+
+volumes:
+  suitecrm_data:

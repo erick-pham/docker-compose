@@ -1,8 +1,10 @@
 version: '3'
 services:
   metabase:
-    image: metabase/metabase:latest
+    image: metabase/metabase:v0.53.3
     container_name: metabase
+    environment:
+      - MB_DB_CONNECTION_URI=jdbc:mysql://localhost:3306/erick?useSSL=true&verifyServerCertificate=false&allowPublicKeyRetrieval=true&user=root&password=root
     ports:
       - "3333:3000"
     networks:
